@@ -7,12 +7,12 @@ def calcular_area_cuadratica(a, b, c, intervalo_inicio, intervalo_fin, num_recta
     def funcion_cuadratica(x):
         return a * x**2 + b * x + c
 
-    # Calcular área real utilizando la función quad de scipy
-    area_real, _ = quad(funcion_cuadratica, intervalo_inicio, intervalo_fin)
+    # Calcular área real utilizando la función quad de scipy (en valor absoluto)
+    area_real, _ = quad(lambda x: abs(funcion_cuadratica(x)), intervalo_inicio, intervalo_fin)
 
     # Calcular las sumas inferior y superior usando el método de los rectángulos
     x_values = np.linspace(intervalo_inicio, intervalo_fin, num_rectangulos + 1)
-    y_values = [funcion_cuadratica(x) for x in x_values]
+    y_values = [abs(funcion_cuadratica(x)) for x in x_values]  # Usar el valor absoluto aquí
     
     suma_inferior = 0
     suma_superior = 0
