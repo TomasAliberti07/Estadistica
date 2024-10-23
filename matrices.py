@@ -22,11 +22,11 @@ def gauss_jordan(matriz, resultados, umbral=1e-10):
         if abs(matriz[i][i]) < umbral:
             # Si el resultado correspondiente también es cercano a cero, el sistema es indeterminado
             if abs(resultados[i]) < umbral:
-                messagebox.showinfo("Resultado", "El sistema es indeterminado y tiene infinitas soluciones.")
+                messagebox.showinfo("Resultado", "El sistema es compatible indeterminado y tiene infinitas soluciones.")
                 return
             else:
                 # Si no, es inconsistente
-                messagebox.showerror("Error", "El sistema es inconsistente y no tiene solución.")
+                messagebox.showerror("Error", "El sistema es incompatible y no tiene solución.")
                 return
 
         # Normalizar la fila pivote
@@ -46,7 +46,7 @@ def gauss_jordan(matriz, resultados, umbral=1e-10):
     for i in range(n):
         fila_nula = all(abs(matriz[i][j]) < umbral for j in range(m))
         if fila_nula and abs(resultados[i]) < umbral:
-            messagebox.showinfo("Resultado", "El sistema es indeterminado y tiene infinitas soluciones.")
+            messagebox.showinfo("Resultado", "El sistema es compatible indeterminado y tiene infinitas soluciones.")
             return
 
     # Calcular soluciones hacia atrás
@@ -59,7 +59,7 @@ def gauss_jordan(matriz, resultados, umbral=1e-10):
     # Para sistemas indeterminados, se puede indicar que hay variables libres
     # Esto es solo un ejemplo, y puede necesitar ajustes según el caso
     if n < m:  # Si hay más variables que ecuaciones
-        messagebox.showinfo("Resultado", "El sistema tiene infinitas soluciones. Las variables pueden ser libres.")
+        messagebox.showinfo("Resultado", "El sistema es compatible indeterminado y tiene infinitas soluciones.")
         return
     
     return soluciones

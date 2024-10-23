@@ -26,9 +26,10 @@ def iniciar_matrices():
 
             soluciones = gauss_jordan(matriz, resultados)
             if soluciones is not None:
+                variables = ['x', 'y', 'z', 'w', 'v', 'u']
                 mensaje = "Sistema Compatible Determinado\n"
                 for i in range(n):
-                    mensaje += f"x{i+1} = {round(soluciones[i], 4)}\n"
+                    mensaje += f"{variables[i]} = {round(soluciones[i], 4)}\n"
                 messagebox.showinfo("Resultados", mensaje)
         except ValueError:
             messagebox.showerror("Error", "Debes ingresar números válidos en el formato nxm.")
