@@ -61,5 +61,5 @@ def gauss_jordan(matriz, resultados, umbral=1e-10):
     if n < m:  # Si hay más variables que ecuaciones
         messagebox.showinfo("Resultado", "El sistema tiene infinitas soluciones. Las variables pueden ser libres.")
         return
-
+    
     return soluciones
