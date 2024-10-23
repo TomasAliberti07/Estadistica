@@ -1,8 +1,10 @@
 import tkinter as tk
 from tkinter import messagebox
 from cuadratica import calcular_area_cuadratica, graficar_funcion
+def iniciar_cuadratica():
 
-def validar_entrada(a, b, c, intervalo_inicio, intervalo_fin, num_rectangulos):
+
+ def validar_entrada(a, b, c, intervalo_inicio, intervalo_fin, num_rectangulos):
     try:
         a = float(a)
         b = float(b)
@@ -27,7 +29,7 @@ def validar_entrada(a, b, c, intervalo_inicio, intervalo_fin, num_rectangulos):
         messagebox.showerror("Error de entrada", str(e))
         return None
 
-def obtener_parametros():
+ def obtener_parametros():
     a = entry_a.get()
     b = entry_b.get()
     c = entry_c.get()
@@ -52,44 +54,44 @@ def obtener_parametros():
 
         graficar_funcion(a, b, c, intervalo_inicio, intervalo_fin, num_rectangulos)
 
-root = tk.Tk()
-root.title("Cálculo de área de una función cuadrática")
-root.configure(bg="#D3D3D3")
+ root = tk.Tk()
+ root.title("Cálculo de área de una función cuadrática")
+ root.configure(bg="#D3D3D3")
 
-label_a = tk.Label(root, text="Coeficiente cuadrático:", bg="#D3D3D3", fg="black")
-label_a.grid(row=0, column=0, padx=10, pady=10)
-entry_a = tk.Entry(root)
-entry_a.grid(row=0, column=1, padx=10, pady=10)
+ label_a = tk.Label(root, text="Coeficiente cuadrático:", bg="#D3D3D3", fg="black")
+ label_a.grid(row=0, column=0, padx=10, pady=10)
+ entry_a = tk.Entry(root)
+ entry_a.grid(row=0, column=1, padx=10, pady=10)
 
-label_b = tk.Label(root, text="Coeficiente lineal:", bg="#D3D3D3", fg="black")
-label_b.grid(row=1, column=0, padx=10, pady=10)
-entry_b = tk.Entry(root)
-entry_b.grid(row=1, column=1, padx=10, pady=10)
+ label_b = tk.Label(root, text="Coeficiente lineal:", bg="#D3D3D3", fg="black")
+ label_b.grid(row=1, column=0, padx=10, pady=10)
+ entry_b = tk.Entry(root)
+ entry_b.grid(row=1, column=1, padx=10, pady=10)
 
-label_c = tk.Label(root, text="Coeficiente independiente:", bg="#D3D3D3", fg="black")
-label_c.grid(row=2, column=0, padx=10, pady=10)
-entry_c = tk.Entry(root)
-entry_c.grid(row=2, column=1, padx=10, pady=10)
+ label_c = tk.Label(root, text="Coeficiente independiente:", bg="#D3D3D3", fg="black")
+ label_c.grid(row=2, column=0, padx=10, pady=10)
+ entry_c = tk.Entry(root)
+ entry_c.grid(row=2, column=1, padx=10, pady=10)
 
-label_intervalo_inicio = tk.Label(root, text="Inicio del intervalo:", bg="#D3D3D3", fg="black")
-label_intervalo_inicio.grid(row=3, column=0, padx=10, pady=10)
-entry_intervalo_inicio = tk.Entry(root)
-entry_intervalo_inicio.grid(row=3, column=1, padx=10, pady=10)
+ label_intervalo_inicio = tk.Label(root, text="Inicio del intervalo:", bg="#D3D3D3", fg="black")
+ label_intervalo_inicio.grid(row=3, column=0, padx=10, pady=10)
+ entry_intervalo_inicio = tk.Entry(root)
+ entry_intervalo_inicio.grid(row=3, column=1, padx=10, pady=10)
 
-label_intervalo_fin = tk.Label(root, text="Fin del intervalo:", bg="#D3D3D3", fg="black")
-label_intervalo_fin.grid(row=4, column=0, padx=10, pady=10)
-entry_intervalo_fin = tk.Entry(root)
-entry_intervalo_fin.grid(row=4, column=1, padx=10, pady=10)
+ label_intervalo_fin = tk.Label(root, text="Fin del intervalo:", bg="#D3D3D3", fg="black")
+ label_intervalo_fin.grid(row=4, column=0, padx=10, pady=10)
+ entry_intervalo_fin = tk.Entry(root)
+ entry_intervalo_fin.grid(row=4, column=1, padx=10, pady=10)
 
-label_num_rectangulos = tk.Label(root, text="Número de rectángulos:", bg="#D3D3D3", fg="black")
-label_num_rectangulos.grid (row=5, column=0, padx=10, pady=10)
-entry_num_rectangulos = tk.Entry(root)
-entry_num_rectangulos.grid(row=5, column=1, padx=10, pady=10)
+ label_num_rectangulos = tk.Label(root, text="Número de rectángulos:", bg="#D3D3D3", fg="black")
+ label_num_rectangulos.grid (row=5, column=0, padx=10, pady=10)
+ entry_num_rectangulos = tk.Entry(root)
+ entry_num_rectangulos.grid(row=5, column=1, padx=10, pady=10)
 
-boton_calcular = tk.Button(root, text="Calcular área", command=obtener_parametros)
-boton_calcular.grid(row=6, column=0, columnspan=2, padx=10, pady=10)
+ boton_calcular = tk.Button(root, text="Calcular área", command=obtener_parametros)
+ boton_calcular.grid(row=6, column=0, columnspan=2, padx=10, pady=10)
 
-texto_resultado = tk.Text(root, width=40, height=10)
-texto_resultado.grid(row=7, column=0, columnspan=2, padx=10, pady=10)
+ texto_resultado = tk.Text(root, width=40, height=10)
+ texto_resultado.grid(row=7, column=0, columnspan=2, padx=10, pady=10)
 
-root.mainloop()
+ root.mainloop()
