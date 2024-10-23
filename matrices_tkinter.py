@@ -71,21 +71,21 @@ def iniciar_matrices():
 
  root = tk.Tk()
  root.title("Método de Gauss-Jordan")
- root.configure(bg="#f0f0f0")
+ root.configure(bg="#A7C6ED")
 
- label_n = tk.Label(root, text="Tamaño de la matriz (nxm):", bg="#f0f0f0")
+ label_n = tk.Label(root, text="Tamaño de la matriz (nxm):", bg="#A7C6ED",fg="black")
  label_n.grid(row=0, column=0, padx=10, pady=10)
 
  entry_n = tk.Entry(root, width=5)
  entry_n.grid(row=0, column=1, padx=10, pady=10)
 
- boton_crear_entradas = tk.Button(root, text="Crear entradas", command=crear_entradas, bg="#cccccc")
+ boton_crear_entradas = tk.Button(root, text="Crear entradas", command=crear_entradas, bg="#A7C6ED",fg="black")
  boton_crear_entradas.grid(row=0, column=2, padx=10, pady=10)
 
- frame_matriz = tk.Frame(root, bg="#f0f0f0")
+ frame_matriz = tk.Frame(root, bg="#A7C6ED")
  frame_matriz.grid(row=1, column=0, columnspan=3, padx=10, pady=10)
 
- boton_calcular = tk.Button(root, text="Calcular", command=obtener_matriz_y_resultados, bg="#cccccc")
+ boton_calcular = tk.Button(root, text="Calcular", command=obtener_matriz_y_resultados, bg="#A7C6ED",fg="black")
  boton_calcular.grid(row=2, column=0, columnspan=3, padx=10, pady=10)
 
 # Make the GUI responsive

@@ -11,7 +11,7 @@ def abrir_matrices():
 root = tk.Tk()
 root.title("Menú Principal")
 root.resizable(False, False)
-root.geometry("500x150")
+root.geometry("600x150")
 
 bg_color = "#A7C6ED"  # Color de fondo azul claro
 button_color = "#4B9CD3"  # Color de botones azul oscuro
@@ -19,7 +19,7 @@ button_color = "#4B9CD3"  # Color de botones azul oscuro
 root.configure(bg=bg_color)  # Aplicar el color de fondo a la ventana
 
 # Label superior
-label_instrucciones = tk.Label(root, text="Seleccione la operación que desea realizar:", 
+label_instrucciones = tk.Label(root, text="Seleccione alguna de las dos operaciones que aparecen en pantalla", 
                                 bg=bg_color, font=("Arial", 14), fg="#2C2C2C")  # Color de texto gris oscuro
 label_instrucciones.pack(pady=(20, 0))  # Espaciado arriba
 
