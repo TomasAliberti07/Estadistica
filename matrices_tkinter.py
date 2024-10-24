@@ -22,7 +22,9 @@ def crear_entradas():
     n, m = obtener_dimensiones()
     if n is None or m is None or not validar_dimensiones(n, m):
         return
-
+    #si alguna validacion falla(si n o m = none o si validar_dimensiones(n, m)
+    # devuelve falso), la función termina
+    
     # Limpiar el marco de la matriz
     for widget in frame_matriz.winfo_children():
         widget.destroy()
