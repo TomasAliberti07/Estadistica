@@ -22,8 +22,12 @@ def crear_entradas():
     n, m = obtener_dimensiones()
     if n is None or m is None or not validar_dimensiones(n, m):
         return
-    #si alguna validacion falla(si n o m = none o si validar_dimensiones(n, m)
-    # devuelve falso), la función termina
+    if n > m:
+        messagebox.showerror("Error", "La matriz ingresada tiene más filas que columnas (n > m).\n"
+                                      "El programa solo admite matrices cuadradas (n = m) o matrices "
+                                      "con más columnas que filas (n < m).\n"
+                                      "Por favor, ingresa una matriz válida.")
+        return
     
     # Limpiar el marco de la matriz
     for widget in frame_matriz.winfo_children():
@@ -34,17 +38,19 @@ def crear_entradas():
     entry_matriz = []
     entry_resultados = []
     variables = ['x', 'y', 'z', 'w', 'v', 'u']  # Lista de variables para las etiquetas
+    subindices = ['\u2081', '\u2082', '\u2083', '\u2084', '\u2085', '\u2086']  # Subíndices Unicode
 
     for i in range(n):
         fila = []
         for j in range(m):
-            label = tk.Label(frame_matriz, text=f"a{i+1}{j+1}:")  # Cambiar a aij...
+            # Cambiar a aij con subíndice
+            label = tk.Label(frame_matriz, text=f"{variables[j]}{subindices[i]}", bg="#A7C6ED")  
             label.grid(row=i, column=j*2, padx=5, pady=5)
             entry = tk.Entry(frame_matriz)
             entry.grid(row=i, column=j*2+1, padx=5, pady=5)
             fila.append(entry)
         entry_matriz.append(fila)
-        label_resultado = tk.Label(frame_matriz, text=f"b{i+1}:")
+        label_resultado = tk.Label(frame_matriz, text=f"b{subindices[i]}", bg="#A7C6ED")
         label_resultado.grid(row=i, column=m*2, padx=5, pady=5)
         entry_resultado_i = tk.Entry(frame_matriz)
         entry_resultado_i.grid(row=i, column=m*2+1, padx=5, pady=5)
@@ -67,9 +73,10 @@ def obtener_matriz_y_resultados():
 
         soluciones = gauss_jordan(matriz, resultados)
         if soluciones is not None:
+            variables = ['x', 'y', 'z', 'w', 'v', 'u']
             mensaje = "Sistema Compatible Determinado\n"
             for i in range(n):
-                mensaje += f"x{i+1} = {round(soluciones[i], 4)}\n"
+                mensaje += f"{variables[i]} = {round(soluciones[i], 4)}\n"
             messagebox.showinfo("Resultados", mensaje)
     except ValueError:
         messagebox.showerror("Error", "Debes ingresar números válidos.")
