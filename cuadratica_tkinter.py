@@ -7,6 +7,7 @@ def iniciar_cuadratica():
     root = tk.Tk()
     root.title("Cálculo de área de una función cuadrática")
     root.configure(bg="#A7C6ED")
+    root.resizable(False, False)
 
     # Área de texto para mostrar resultados
     texto_resultado = tk.Text(root, width=30, height=15)
@@ -20,7 +21,7 @@ def iniciar_cuadratica():
         texto_resultado.insert(tk.END, f"Suma inferior: {suma_inferior:.2f}\n")
         texto_resultado.insert(tk.END, f"Suma superior: {suma_superior:.2f}\n")
         texto_resultado.insert(tk.END, f"Área real: {area_real:.2f}\n")
-        texto_resultado.insert(tk.END, f"Error de cálculo: {error:.2f}\n")
+        texto_resultado.insert(tk.END, f"Error de cálculo: {error:.2f}%\n")
 
         # Obtener el contenido del texto_resultado
         contenido_texto = obtener_texto_resultado()
@@ -69,7 +70,7 @@ def iniciar_cuadratica():
     entry_intervalo_fin = tk.Entry(root)
     entry_intervalo_fin.grid(row=4, column=1, padx=10, pady=10)
 
-    label_num_rectangulos = tk.Label(root, text="Número de rectángulos:", bg="#A7C6ED", fg="black")
+    label_num_rectangulos = tk.Label(root, text="Cantidad de rectángulos:", bg="#A7C6ED", fg="black")
     label_num_rectangulos.grid(row=5, column=0, padx=10, pady=10)
     entry_num_rectangulos = tk.Entry(root)
     entry_num_rectangulos.grid(row=5, column=1, padx=10, pady=10)
