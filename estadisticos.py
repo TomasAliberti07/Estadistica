@@ -109,6 +109,22 @@ def distribucion_normal(x, mu, sigma):
     densidad = coeficiente * math.exp(exponente)
     return densidad
 
+def distribucion_zipf(k, s, N):
+    """
+    Calcula la probabilidad de Zipf para una posición k
+    Parámetros:
+    k: posición (rango del elemento)
+    s: parámetro de la distribución
+    N: número total de elementos
+    """
+    # Verificar que k esté en el rango permitido
+    if k < 1 or k > N:
+        return 0
+
+    denominador = sum(1 / (n ** s) for n in range(1, N + 1))
+    probabilidad = (1 / (k ** s)) / denominador
+    return round(probabilidad, 4)
+
 def calcular_integral(mu, sigma, primer_parametro, segundo_parametro):
     if primer_parametro > segundo_parametro:
         raise ValueError("El primer parámetro de integración debe ser menor o igual que el segundo")
