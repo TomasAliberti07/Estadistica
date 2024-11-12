@@ -126,7 +126,7 @@ def distribucion_zipf(k, s, N):
     return round(probabilidad, 4)
 
 
-# Implementación alternativa usando scipy.stats.zipf
+# alternativa usando scipy.stats.zipf
 """
 def ejemplo_zipf_scipy():
     # Usando scipy.stats.zipf para calcular distribución Zipf
