@@ -125,6 +125,36 @@ def distribucion_zipf(k, s, N):
     probabilidad = (1 / (k ** s)) / denominador
     return round(probabilidad, 4)
 
+
+# Implementación alternativa usando scipy.stats.zipf
+"""
+def ejemplo_zipf_scipy():
+    # Usando scipy.stats.zipf para calcular distribución Zipf
+    print("\nResultados con scipy.stats.zipf:")  
+    print("-" * 40)
+    
+    s = 1.3  # Parámetro de la distribución
+    zipf_dist = zipf(a=s + 1)  # En scipy, a = s + 1 para conversión de parámetros
+    k_valores = [1, 2, 5]  # Posiciones a evaluar
+    
+    # Normalizar probabilidades
+    total = sum(zipf_dist.pmf(k) for k in range(1, 31))
+    
+    # pmf es función de masa de probabilidad
+    # calcula P(X = k) para valores discretos
+    # usa la formula: P(X = k) = 1/(ζ(a) * k^a)
+    # ζ(a) es la función zeta de riemann
+    # k es el rango o posición
+    # y luego se normaliza dividiendo por el total
+    
+    for k in k_valores:
+        prob = zipf_dist.pmf(k) / total
+        print(f"Probabilidad para k={k}: {prob:.4f}")
+
+if __name__ == "__main__":
+    ejemplo_zipf_scipy()
+"""
+
 def calcular_integral(mu, sigma, primer_parametro, segundo_parametro):
     if primer_parametro > segundo_parametro:
         raise ValueError("El primer parámetro de integración debe ser menor o igual que el segundo")
