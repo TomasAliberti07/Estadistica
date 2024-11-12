@@ -102,6 +102,7 @@ def menu_distribuciones():
                                         "2. Distribución de Poisson\n"
                                         "3. Distribución Hipergeométrica\n"
                                         "4. Distribución Normal\n"
+                                        "5. Distribución de Zipf\n"
                                         "0. Regresar")
         if opcion is None:
             return
@@ -149,6 +150,21 @@ def menu_distribuciones():
                 for x_val in x_values:
                     densidad = distribucion_normal(x_val, mu, sigma)
                     resultados.append([f"Normal f(X={x_val})", densidad])
+                mostrar_resultados(resultados)
+            
+            elif opcion == 5:
+                N = simpledialog.askinteger("Zipf", "Ingrese el número total de elementos (N):")
+                s = simpledialog.askfloat("Zipf", "Ingrese el parámetro s:")
+                k = simpledialog.askstring("Zipf", "Ingrese la(s) posición(es) k (ej: 1,2,5):")
+        
+                k_values = [int(x.strip()) for x in k.split(',')]
+                resultados = []
+        
+                for k_val in k_values:
+                    if 1 <= k_val <= N:
+                        prob = distribucion_zipf(k_val, s, N)
+                        resultados.append([f"Zipf P(k={k_val})", prob])
+        
                 mostrar_resultados(resultados)
             else:
                 messagebox.showerror("Error", "Opción no válida.")
