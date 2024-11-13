@@ -1,4 +1,6 @@
 import statistics
+import numpy as np
+import matplotlib.pyplot as plt
 import math
 from scipy.integrate import quad
 
@@ -191,3 +193,43 @@ def coeficiente_curtosis(lista):
         interpretación = "La distribución es platicúrtica"
         
     return round(curtosis, 4), interpretación
+
+def weibull_pdf(x, k, λ):
+    if x < 0:
+        return 0
+    return (k / λ) * (x / λ) ** (k - 1) * math.exp(- (x / λ) ** k)
+
+def weibull_cdf(x, k, λ):
+    if x < 0:
+        return 0
+    return 1 - math.exp(- (x / λ) ** k)
+
+def plot_weibull(k, λ):
+    x = np.linspace(0, λ * 3, 1000)  # Valores de x
+    pdf_values = [weibull_pdf(val, k, λ) for val in x]  # Calcular PDF
+    cdf_values = [weibull_cdf(val, k, λ) for val in x]  # Calcular CDF
+
+    # Crear el gráfico
+    plt.figure(figsize=(12, 6))
+    
+    # Gráfico de la PDF
+    plt.subplot(1, 2, 1)
+    plt.plot(x, pdf_values, 'b-', label='PDF', color='blue')
+    plt.title('Distribución de Weibull - PDF')
+    plt.xlabel('x')
+    plt.ylabel('Densidad de probabilidad')
+    plt.grid()
+    plt.legend()
+    
+    # Gráfico de la CDF
+    plt.subplot(1, 2, 2)
+    plt.plot(x, cdf_values, 'r-', label='CDF', color='red')
+    plt.title('Distribución de Weibull - CDF')
+    plt.xlabel('x')
+    plt.ylabel('Probabilidad acumulada')
+    plt.grid()
+    plt.legend()
+    
+    # Mostrar el gráfico
+    plt.tight_layout()
+    plt.show()
