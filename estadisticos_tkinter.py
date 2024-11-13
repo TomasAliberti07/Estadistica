@@ -105,6 +105,7 @@ def menu_distribuciones():
                                         "4. Distribución Normal\n"
                                         "5. Distribución de Zipf\n"
                                         "6. Distribución Uniforme Continua\n"
+                                        "7. Distribución de Weibull\n"
                                         "0. Regresar")
         if opcion is None:
             return
@@ -213,7 +214,14 @@ def menu_distribuciones():
                    resultado += f"\nP({x1} <= X <= {x2}): {prob_intervalo:.2f}"
      # Mostrar todos los resultados en un cuadro de mensaje
                  messagebox.showinfo("Resultados", resultado)
-
+                
+            elif opcion == 7:  # Opción para la distribución de Weibull
+                k = simpledialog.askfloat("Weibull", "Ingrese el parámetro de forma (k):")
+                λ = simpledialog.askfloat("Weibull", "Ingrese el parámetro de escala (λ):")
+                if k is None or λ is None:
+                    messagebox.showwarning("Advertencia", "Ambos parámetros son necesarios.")
+                    continue
+                plot_weibull(k, λ)  # Llama a la función que grafica
         
             else:
                 messagebox.showerror("Error", "Opción no válida.")
