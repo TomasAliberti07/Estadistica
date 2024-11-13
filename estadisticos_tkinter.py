@@ -7,6 +7,7 @@ def mostrar_resultados(resultados):
     # Crear una nueva ventana para mostrar los resultados
     ventana_resultados = tk.Toplevel()
     ventana_resultados.title("Resultados")
+    ventana_resultados.grab_set()
 
     # Crear una tabla utilizando Treeview
     tree = ttk.Treeview(ventana_resultados, columns=("Operacion", "Resultado"), show="headings")
@@ -21,6 +22,8 @@ def mostrar_resultados(resultados):
     # Botón para cerrar la ventana de resultados
     btn_cerrar = ttk.Button(ventana_resultados, text="Cerrar", command=ventana_resultados.destroy)
     btn_cerrar.pack()
+
+    ventana_resultados.wait_window()
 
 def menu_estadistico(numeros):
     opciones = simpledialog.askstring("Opciones Estadísticas", 
