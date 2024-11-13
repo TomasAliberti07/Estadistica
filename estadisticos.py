@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math
 from scipy.integrate import quad
+import random
 
 # Funciones estadísticas
 def calcular_media(lista):
@@ -233,3 +234,12 @@ def plot_weibull(k, λ):
     # Mostrar el gráfico
     plt.tight_layout()
     plt.show()
+
+
+def distribucion_pareto(x_m, alpha, num_samples):
+    muestras = []
+    for _ in range(num_samples):
+        u = random.random()
+        x = x_m * (1 - u) ** (-1 / alpha)
+        muestras.append(round(x, 4))
+    return muestras
