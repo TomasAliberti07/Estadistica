@@ -128,6 +128,10 @@ def distribucion_zipf(k, s, N):
     probabilidad = (1 / (k ** s)) / denominador
     return round(probabilidad, 4)
 
+def probabilidad_acumulada_zipf(rango, s, N):
+    # Calcular la probabilidad acumulada de Zipf para un rango
+    return sum(distribucion_zipf(k, s, N) for k in rango)
+
 
 # alternativa usando scipy.stats.zipf
 """
