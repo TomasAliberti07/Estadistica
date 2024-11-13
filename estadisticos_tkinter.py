@@ -162,16 +162,39 @@ def menu_distribuciones():
             elif opcion == 5:
                 N = simpledialog.askinteger("Zipf", "Ingrese el número total de elementos (N):")
                 s = simpledialog.askfloat("Zipf", "Ingrese el parámetro s:")
-                k = simpledialog.askstring("Zipf", "Ingrese la(s) posición(es) k (ej: 1,2,5):")
-        
-                k_values = [int(x.strip()) for x in k.split(',')]
+                k = simpledialog.askstring("Zipf", "Ingrese la(s) posición(es) k (ej: 1,2,5) o un rango (ej: 2-7):")
+
+                # Lista para almacenar todas las posiciones k
+                k_list = []
+    
+                # Procesar entrada del usuario
+                valores = k.split(',')
+                for valor in valores:
+                    if '-' in valor:
+                        # Procesar rango
+                        inicio, fin = valor.split('-')
+                        inicio = int(inicio)
+                        fin = int(fin)
+                        for i in range(inicio, fin + 1):
+                            k_list.append(i)
+                    else:
+                        # Procesar número individual
+                        k_list.append(int(valor))
+
                 resultados = []
-        
-                for k_val in k_values:
+    
+                # Calcular la suma normalizada para Zipf
+                suma_normalizada = sum(1 / (i ** s) for i in range(1, N + 1))
+                probabilidad_acumulada = 0
+
+                for k_val in k_list:
                     if 1 <= k_val <= N:
-                        prob = distribucion_zipf(k_val, s, N)
-                        resultados.append([f"Zipf P(k={k_val})", prob])
-        
+                        prob = 1 / (k_val ** s * suma_normalizada)
+                        probabilidad_acumulada += prob
+                        resultados.append([f"Zipf P(k={k_val})", round(prob, 4)])
+    
+                if len(k_list) > 1:
+                    resultados.append(["Probabilidad acumulada", round(probabilidad_acumulada, 4)])
                 mostrar_resultados(resultados)
 
             elif opcion == 6:  # Opción para la Distribución Uniforme Continua
