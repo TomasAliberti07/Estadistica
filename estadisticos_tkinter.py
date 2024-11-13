@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import messagebox, simpledialog, ttk
 from estadisticos import *
 
+
 def mostrar_resultados(resultados):
     # Crear una nueva ventana para mostrar los resultados
     ventana_resultados = tk.Toplevel()
@@ -103,6 +104,7 @@ def menu_distribuciones():
                                         "3. Distribución Hipergeométrica\n"
                                         "4. Distribución Normal\n"
                                         "5. Distribución de Zipf\n"
+                                        "6. Distribución Uniforme Continua\n"
                                         "0. Regresar")
         if opcion is None:
             return
@@ -166,10 +168,58 @@ def menu_distribuciones():
                         resultados.append([f"Zipf P(k={k_val})", prob])
         
                 mostrar_resultados(resultados)
+
+            elif opcion == 6:  # Nueva opción para la Distribución Uniforme Continua
+                 
+
+                 a = simpledialog.askfloat("Uniforme Continua", "Ingrese el valor de a (inicio del intervalo):")
+                 b = simpledialog.askfloat("Uniforme Continua", "Ingrese el valor de b (fin del intervalo):")
+    
+                 if a is None or b is None:
+                   messagebox.showwarning("Advertencia", "Valores a y b son necesarios.")
+                   continue
+    
+                 if a >= b:
+                  messagebox.showerror("Error", "El valor de 'a' debe ser menor que el valor de 'b'.")
+                  continue
+    
+    # Pide el valor de x1 para calcular la probabilidad
+                 x1 = simpledialog.askfloat("Uniforme Continua", "Ingrese el valor de x1:")
+                 if x1 is None:
+                  messagebox.showwarning("Advertencia", "El valor de x1 es necesario.")
+                  continue
+
+                 if x1 < a or x1 > b:
+                    messagebox.showerror("Error", f"x1 debe estar entre {a} y {b}.")
+                    continue
+    
+     # Llamada a la función distribucion_uniforme para obtener los resultados
+                 probabilidad, valor_esperado, varianza, desviacion_estandar = distribucion_uniforme(a, b, x1)
+
+                 resultado = f"Valor esperado (E): {valor_esperado:.2f}\nVarianza (V): {varianza:.2f}\nDesviación estándar (D): {desviacion_estandar:.2f}\n"
+    
+                 # Mostrar probabilidad de x1
+                 resultado += f"P(a <= X <= {x1}): {probabilidad:.2f}"
+                 x2 = None
+                 # Preguntar si quiere calcular para un intervalo
+                 calcular_x2 = messagebox.askyesno("Uniforme Continua", "¿Desea calcular la probabilidad entre dos valores (x1 y x2)?")
+                 if calcular_x2:
+                   x2 = simpledialog.askfloat("Uniforme Continua", "Ingrese el valor de x2:")
+                   if x2 is None or x2 < a or x2 > b or x1 >= x2:
+                    messagebox.showerror("Error", f"x2 debe estar entre {a} y {b}, y debe ser mayor que x1.")
+                    continue
+        # Calcular probabilidad entre x1 y x2
+                   prob_intervalo = distribucion_uniforme(a, b, x1, x2)[0]
+                   resultado += f"\nP({x1} <= X <= {x2}): {prob_intervalo:.2f}"
+     # Mostrar todos los resultados en un cuadro de mensaje
+                 messagebox.showinfo("Resultados", resultado)
+
+        
             else:
                 messagebox.showerror("Error", "Opción no válida.")
         except ValueError as e:
             messagebox.showerror("Error", f"Entrada no válida: {e}")
+           
 
 def parse_k_values(k):
     if '-' in k:

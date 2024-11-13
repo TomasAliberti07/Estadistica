@@ -154,6 +154,18 @@ def ejemplo_zipf_scipy():
 if __name__ == "__main__":
     ejemplo_zipf_scipy()
 """
+def distribucion_uniforme(a, b, x1, x2=None):
+
+    if x2 is None:
+       probabilidad=  (x1 - a) / (b - a)
+    else:
+       probabilidad= (x2 - x1) / (b - a)
+   
+    valor_esperado=(a + b) / 2
+    varianza=((b - a) ** 2) / 12
+    desviacion_estandar=varianza ** 0.5
+    return probabilidad, valor_esperado, varianza, desviacion_estandar
+
 
 def calcular_integral(mu, sigma, primer_parametro, segundo_parametro):
     if primer_parametro > segundo_parametro:
