@@ -235,11 +235,11 @@ def plot_weibull(k, λ):
     plt.tight_layout()
     plt.show()
 
-
 def distribucion_pareto(x_m, alpha, num_samples):
     muestras = []
     for _ in range(num_samples):
         u = random.random()
-        x = x_m * (1 - u) ** (-1 / alpha)
+        x = x_m * u ** (-1 / alpha)  # Generar muestra de Pareto
         muestras.append(round(x, 4))
+        
     return muestras

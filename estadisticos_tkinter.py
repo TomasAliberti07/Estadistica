@@ -3,7 +3,7 @@ from tkinter import messagebox, simpledialog, ttk
 from estadisticos import *
 
 
-def mostrar_resultados(resultados):
+def mostrar_resultados(resultados, media=None):
     # Crear una nueva ventana para mostrar los resultados
     ventana_resultados = tk.Toplevel()
     ventana_resultados.title("Resultados")
@@ -17,6 +17,8 @@ def mostrar_resultados(resultados):
     # Insertar los resultados en la tabla
     for operacion, resultado in resultados:
         tree.insert("", "end", values=(operacion, resultado))
+    if media is not None:
+        tree.insert("", "end", values=("Media", f"{media:.4f}"))
 
     # Botón para cerrar la ventana de resultados
     btn_cerrar = ttk.Button(ventana_resultados, text="Cerrar", command=ventana_resultados.destroy)
@@ -223,15 +225,20 @@ def menu_distribuciones():
                     messagebox.showwarning("Advertencia", "Ambos parámetros son necesarios.")
                     continue
                 plot_weibull(k, λ)  # Llama a la función que grafica
-            
             elif opcion == 8:  # Nueva opción para la Distribución de Pareto
                 x_m = simpledialog.askfloat("Pareto", "Ingrese el valor mínimo (x_m):")
                 alpha = simpledialog.askfloat("Pareto", "Ingrese el parámetro de forma (alpha):")
                 num_samples = simpledialog.askinteger("Pareto", "Ingrese el número de muestras a generar:")
-                muestras = distribucion_pareto(x_m, alpha, num_samples)
+                
+                # Generar muestras y calcular la media
+                muestras, media = distribucion_pareto(x_m, alpha, num_samples)
+                
+                # Preparar los resultados para mostrar
                 resultados = [[f"Muestra {i+1}", muestra] for i, muestra in enumerate(muestras)]
-                mostrar_resultados(resultados)
-        
+                
+                # Mostrar los resultados incluyendo la media
+                mostrar_resultados(resultados, media)
+                    
             else:
                 messagebox.showerror("Error", "Opción no válida.")
         except ValueError as e:
