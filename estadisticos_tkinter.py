@@ -163,38 +163,34 @@ def menu_distribuciones():
                 N = simpledialog.askinteger("Zipf", "Ingrese el número total de elementos (N):")
                 s = simpledialog.askfloat("Zipf", "Ingrese el parámetro s:")
                 k = simpledialog.askstring("Zipf", "Ingrese la(s) posición(es) k (ej: 1,2,5) o un rango (ej: 2-7):")
-
+                
                 # Lista para almacenar todas las posiciones k
-                k_list = []
-    
-                # Procesar entrada del usuario
+                lista_k = []
+            
+                # entrada del usuario
                 valores = k.split(',')
                 for valor in valores:
                     if '-' in valor:
-                        # Procesar rango
-                        inicio, fin = valor.split('-')
-                        inicio = int(inicio)
-                        fin = int(fin)
-                        for i in range(inicio, fin + 1):
-                            k_list.append(i)
+                        # si hay guion, entonces lo toma como un rango
+                        inicio, fin = map(int, valor.split('-'))
+                        lista_k.extend(range(inicio, fin + 1))
                     else:
-                        # Procesar número individual
-                        k_list.append(int(valor))
-
-                resultados = []
-    
-                # Calcular la suma normalizada para Zipf
-                suma_normalizada = sum(1 / (i ** s) for i in range(1, N + 1))
-                probabilidad_acumulada = 0
-
-                for k_val in k_list:
+                        # si no hay guion es un solo valor
+                        lista_k.append(int(valor))
+            
+                resultados = [] #resultados de las probabilidades
+                
+                # calcula probabildiad individual
+                for k_val in lista_k:
                     if 1 <= k_val <= N:
-                        prob = 1 / (k_val ** s * suma_normalizada)
-                        probabilidad_acumulada += prob
-                        resultados.append([f"Zipf P(k={k_val})", round(prob, 4)])
-    
-                if len(k_list) > 1:
-                    resultados.append(["Probabilidad acumulada", round(probabilidad_acumulada, 4)])
+                        prob = distribucion_zipf(k_val, s, N)
+                        resultados.append([f"Zipf P(k={k_val})", prob])
+            
+                # si hay mas de un valor k, calcula la probabilidad acumulada
+                if len(lista_k) > 1:
+                    prob_acumulada = probabilidad_acumulada_zipf(lista_k, s, N)
+                    resultados.append(["Probabilidad acumulada", prob_acumulada])
+                
                 mostrar_resultados(resultados)
 
             elif opcion == 6:  # Opción para la Distribución Uniforme Continua
