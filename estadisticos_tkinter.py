@@ -7,6 +7,7 @@ def mostrar_resultados(resultados, media=None):
     # Crear una nueva ventana para mostrar los resultados
     ventana_resultados = tk.Toplevel()
     ventana_resultados.title("Resultados")
+    ventana_resultados.grab_set()
 
     # Crear una tabla utilizando Treeview
     tree = ttk.Treeview(ventana_resultados, columns=("Operacion", "Resultado"), show="headings")
@@ -23,6 +24,8 @@ def mostrar_resultados(resultados, media=None):
     # Botón para cerrar la ventana de resultados
     btn_cerrar = ttk.Button(ventana_resultados, text="Cerrar", command=ventana_resultados.destroy)
     btn_cerrar.pack()
+
+    ventana_resultados.wait_window()
 
 def menu_estadistico(numeros):
     opciones = simpledialog.askstring("Opciones Estadísticas", 
@@ -161,16 +164,35 @@ def menu_distribuciones():
             elif opcion == 5:
                 N = simpledialog.askinteger("Zipf", "Ingrese el número total de elementos (N):")
                 s = simpledialog.askfloat("Zipf", "Ingrese el parámetro s:")
-                k = simpledialog.askstring("Zipf", "Ingrese la(s) posición(es) k (ej: 1,2,5):")
-        
-                k_values = [int(x.strip()) for x in k.split(',')]
-                resultados = []
-        
-                for k_val in k_values:
+                k = simpledialog.askstring("Zipf", "Ingrese la(s) posición(es) k (ej: 1,2,5) o un rango (ej: 2-7):")
+                
+                # Lista para almacenar todas las posiciones k
+                lista_k = []
+            
+                # entrada del usuario
+                valores = k.split(',')
+                for valor in valores:
+                    if '-' in valor:
+                        # si hay guion, entonces lo toma como un rango
+                        inicio, fin = map(int, valor.split('-'))
+                        lista_k.extend(range(inicio, fin + 1))
+                    else:
+                        # si no hay guion es un solo valor
+                        lista_k.append(int(valor))
+            
+                resultados = [] #resultados de las probabilidades
+                
+                # calcula probabildiad individual
+                for k_val in lista_k:
                     if 1 <= k_val <= N:
                         prob = distribucion_zipf(k_val, s, N)
                         resultados.append([f"Zipf P(k={k_val})", prob])
-        
+            
+                # si hay mas de un valor k, calcula la probabilidad acumulada
+                if len(lista_k) > 1:
+                    prob_acumulada = probabilidad_acumulada_zipf(lista_k, s, N)
+                    resultados.append(["Probabilidad acumulada", prob_acumulada])
+                
                 mostrar_resultados(resultados)
 
             elif opcion == 6:  # Opción para la Distribución Uniforme Continua
